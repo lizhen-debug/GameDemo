@@ -2,24 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Event : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    public Player player0;
-    
+    public PlayerInfo player_info = new PlayerInfo();
+
     // Start is called before the first frame update
     void Start()
     {
- 
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void IncreasePlayerFoodValue()
-    {
-        player0.ChangePlayerInfo(Player.info_type.FOOD,Player.operate_type.INCREASE,10);
-    }
 }

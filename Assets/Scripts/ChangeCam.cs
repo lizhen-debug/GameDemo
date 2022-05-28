@@ -17,6 +17,8 @@ public class ChangeCam : MonoBehaviour
             int idx = i;
             cam_btn_arr[i].GetComponent<Button>().onClick.AddListener(() => GlobalFunctions.ChangeCamera(idx));
         }
+
+
     }
 
 }
