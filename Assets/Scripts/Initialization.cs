@@ -30,7 +30,6 @@ public class Initialization : MonoBehaviour
             act_btn_arr[i].GetComponent<Button>().onClick.AddListener(() => GlobalFunctions.InvokeAction(idx));
         }
 
-
     }
 
     // Update is called once per frame
