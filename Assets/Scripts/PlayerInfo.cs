@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,13 +13,16 @@ public abstract class Info
         this.cur = cur;
     }
 
-    public void increase(int val)
+    public bool increase(int val)
     {
-        this.cur += val;
+        this.cur = Math.Min(this.cur + val, this.max);
+        return true;
     }
-    public void decrease(int val)
+    public bool decrease(int val)
     {
+        if(this.cur - val < 0){ return false;}
         this.cur -= val;
+        return true;
     }
 
 }
@@ -33,8 +37,14 @@ public class SpiritInfo : Info
     public SpiritInfo(int min = 0, int max = 100, int cur = 0) : base(min, max, cur) { }
 }
 
+public class ActionInfo : Info
+{
+    public ActionInfo(int min = 0, int max = 10, int cur = 0) : base(min, max, cur) { }
+}
+
 public class PlayerInfo
 {
-    public SpiritInfo spirit_info = new SpiritInfo();
-    public FoodInfo food_info = new FoodInfo();
+    public SpiritInfo spirit_info = new SpiritInfo(0,100,100);
+    public FoodInfo food_info = new FoodInfo(0,100,100);
+    public ActionInfo action_info = new ActionInfo(0,10,10);
 }
