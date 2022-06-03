@@ -11,7 +11,10 @@ public class Initialization : MonoBehaviour
     public List<GameObject> cam_arr = new List<GameObject>();
     public List<GameObject> cam_btn_arr = new List<GameObject>();
 
+    public RandomEventUI randomEventUI;
+
     Player player;
+    PlayerChangeInfo PlayerChangeInfo;
     void Start()
     {
         // initialize cam_arr & btns
@@ -24,11 +27,15 @@ public class Initialization : MonoBehaviour
 
         // initialize act_arr & btns
         GlobalFunctions.InitializeAction(player);
+        GlobalFunctions.randomEventUI = randomEventUI;
         for (int i = 0; i < act_btn_arr.Count; i++)
         {
             int idx = i;
             act_btn_arr[i].GetComponent<Button>().onClick.AddListener(() => GlobalFunctions.InvokeAction(idx));
         }
+
+        string csv_file_path = Application.streamingAssetsPath + "\\data.csv";
+        GlobalFunctions.random_event_dt = GlobalFunctions.ReadCSV(csv_file_path);
 
     }
 

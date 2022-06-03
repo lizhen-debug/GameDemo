@@ -48,3 +48,10 @@ public class PlayerInfo
     public FoodInfo food_info = new FoodInfo(0,100,100);
     public ActionInfo action_info = new ActionInfo(0,10,10);
 }
+
+public class PlayerChangeInfo
+{
+    string info_type;//spirit_info.xxx  food_info.xxx   action_info.xxx
+    string op_type;//set    increase    decrease
+    string value;
+}
