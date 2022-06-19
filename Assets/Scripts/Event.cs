@@ -26,6 +26,13 @@ public static class Event
     public static void Cook(Player player)
     {
         Debug.Log("Cook");
+
+
+        if (!GlobalFunctions.PrepareFoodQTE.is_active)
+            GlobalFunctions.PrepareFoodQTE.ActiveQTE();
+        else
+            GlobalFunctions.PrepareFoodQTE.DeactiveQTE();
+
     }
     public static void Chat(Player player)
     {
@@ -63,18 +70,7 @@ public static class Event
  
         PlayerChangeInfo playerChangeInfo = new PlayerChangeInfo();
 
-
-        GlobalFunctions.randomEventUI.origin_btn.GetComponent<Button>().onClick.AddListener(() => Event.RandomEvent(player, -1));
-        if (eventID > 0)
-            GlobalFunctions.randomEventUI.origin_btn.GetComponentInChildren<TextMeshProUGUI>().text = btn_text_ary[0];
-        GlobalFunctions.randomEventUI.origin_btn.transform.localPosition = new Vector3(440, -156 - 200 / (btn_num + 1) * 1, 0);
-
-        if (eventID > 0)
-            GlobalFunctions.randomEventUI.origin_msg.GetComponent<TextMeshProUGUI>().text = msg_info_ary[0];
-        GlobalFunctions.randomEventUI.origin_msg.transform.localPosition = new Vector3(-180, -156 - 200 / (msg_num + 1) * 1, 0);
-
-
-
+        
         GlobalFunctions.randomEventUI.RemoveAllCloneObjectByTag("clone");
         GlobalFunctions.ChangeRandomEventUIVisible();
 
@@ -82,20 +78,20 @@ public static class Event
         if (GlobalFunctions.randomEventUI.gameObject.active)
         {
 
-            for (int i = 0; i < btn_num - 1; i++)
+            for (int i = 0; i < btn_num ; i++)
             {
                 GameObject clone_btn = GlobalFunctions.randomEventUI.AddButton();
                 clone_btn.GetComponent<Button>().onClick.AddListener(() => Event.RandomEvent(player, -1));
-                clone_btn.transform.localPosition = new Vector3(440, -156 - 200 / (btn_num + 1) * (i + 2), 0);
-                clone_btn.GetComponentInChildren<TextMeshProUGUI>().text = btn_text_ary[i + 1];
+                clone_btn.transform.localPosition = new Vector3(440, -240 - 300 / (btn_num + 1) * (i + 1), 0);
+                clone_btn.GetComponentInChildren<TextMeshProUGUI>().text = btn_text_ary[i];
             }
 
 
-            for (int i = 0; i < msg_num - 1; i++)
+            for (int i = 0; i < msg_num ; i++)
             {
                 GameObject clone_msg = GlobalFunctions.randomEventUI.AddMessageBox();
-                clone_msg.transform.localPosition = new Vector3(-180, -156 - 200 / (msg_num + 1) * (i + 2), 0);
-                clone_msg.GetComponent<TextMeshProUGUI>().text = msg_info_ary[i + 1];
+                clone_msg.transform.localPosition = new Vector3(-180, -240 - 300 / (msg_num + 1) * (i + 1), 0);
+                clone_msg.GetComponent<TextMeshProUGUI>().text = msg_info_ary[i];
             }
         }
         else
@@ -103,5 +99,10 @@ public static class Event
             Event.DecodeRandomEvent(playerChangeInfo);
         }
 
+    }
+
+    public static void PrepareFoodQTE(Player player)
+    {
+        
     }
 }

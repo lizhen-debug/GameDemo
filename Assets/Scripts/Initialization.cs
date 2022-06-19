@@ -12,6 +12,7 @@ public class Initialization : MonoBehaviour
     public List<GameObject> cam_btn_arr = new List<GameObject>();
 
     public RandomEventUI randomEventUI;
+    public PrepareFoodQTE PrepareFoodQTE;
 
     Player player;
     PlayerChangeInfo PlayerChangeInfo;
@@ -28,6 +29,7 @@ public class Initialization : MonoBehaviour
         // initialize act_arr & btns
         GlobalFunctions.InitializeAction(player);
         GlobalFunctions.randomEventUI = randomEventUI;
+        GlobalFunctions.PrepareFoodQTE= PrepareFoodQTE;
         for (int i = 0; i < act_btn_arr.Count; i++)
         {
             int idx = i;
@@ -36,7 +38,6 @@ public class Initialization : MonoBehaviour
 
         string csv_file_path = Application.streamingAssetsPath + "\\data.csv";
         GlobalFunctions.random_event_dt = GlobalFunctions.ReadCSV(csv_file_path);
-
     }
 
     // Update is called once per frame
