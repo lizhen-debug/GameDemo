@@ -27,9 +27,9 @@ public abstract class Info
 
 }
 
-public class FoodInfo : Info
+public class FullnessInfo : Info
 {
-   public FoodInfo(int min = 0, int max = 100, int cur = 0) : base(min, max, cur) { }
+   public FullnessInfo(int min = 0, int max = 100, int cur = 0) : base(min, max, cur) { }
 }
 
 public class SpiritInfo : Info
@@ -45,7 +45,7 @@ public class ActionInfo : Info
 public class PlayerInfo
 {
     public SpiritInfo spirit_info = new SpiritInfo(0,100,100);
-    public FoodInfo food_info = new FoodInfo(0,100,100);
+    public FullnessInfo food_info = new FullnessInfo(0,100,100);
     public ActionInfo action_info = new ActionInfo(0,10,10);
 }
 
