@@ -17,6 +17,7 @@ public static class GlobalFunctions
     public static List<Action> act_arr = new List<Action>();
     public static RandomEventUI randomEventUI;
     public static PrepareFoodQTE PrepareFoodQTE;
+    public static PickFood PickFood;
 
     public static DataTable random_event_dt;
     public static DataTable food_qte_dt;
