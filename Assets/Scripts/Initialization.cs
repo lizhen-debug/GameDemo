@@ -13,6 +13,7 @@ public class Initialization : MonoBehaviour
 
     public RandomEventUI randomEventUI;
     public PrepareFoodQTE PrepareFoodQTE;
+    public PickFood PickFood;
 
     Player player;
     PlayerChangeInfo PlayerChangeInfo;
@@ -30,6 +31,7 @@ public class Initialization : MonoBehaviour
         GlobalFunctions.InitializeAction(player);
         GlobalFunctions.randomEventUI = randomEventUI;
         GlobalFunctions.PrepareFoodQTE= PrepareFoodQTE;
+        GlobalFunctions.PickFood = PickFood;
         for (int i = 0; i < act_btn_arr.Count; i++)
         {
             int idx = i;

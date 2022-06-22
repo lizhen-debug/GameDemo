@@ -31,8 +31,8 @@ public class PrepareFoodQTE : MonoBehaviour
     {
         game_time += Time.deltaTime;
         
-        knife.GetComponent<RectTransform>().SetPositionAndRotation(new Vector3(650 + 960, 140, 0), new Quaternion(0, 0, 0, 0));
-        knife.transform.SetSiblingIndex(33);
+        knife.GetComponent<RectTransform>().SetPositionAndRotation(new Vector3(180 + 960, 140, 0), new Quaternion(0, 0, 0, 0));
+        knife.transform.SetSiblingIndex(99);
         
         for (int i = 0; i < food_instance_array.Count; i++)
         {
@@ -66,17 +66,17 @@ public class PrepareFoodQTE : MonoBehaviour
         total_score_text.GetComponent<TextMeshProUGUI>().text = total_score.ToString();
     }
 
-    public void ActiveQTE()
+    public void ActiveQTE(string food_name,int qte_num)
     {
         gameObject.SetActive(true);
         game_time = 0;
         is_active = true;
 
-        string csv_file_path = Application.streamingAssetsPath + "\\PotatoQTE.csv";
+        string csv_file_path = Application.streamingAssetsPath + "\\" + food_name + ".csv";
         GlobalFunctions.food_qte_dt = GlobalFunctions.ReadCSV(csv_file_path);
 
 
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < qte_num; i++)
         {
             GameObject food_instance = Instantiate(food);
             food_instance.GetComponent<RectTransform>().parent = food.GetComponent<RectTransform>().parent;
@@ -98,6 +98,7 @@ public class PrepareFoodQTE : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        food_instance_array.Clear();
         gameObject.SetActive(false);
         is_active = false;
     }

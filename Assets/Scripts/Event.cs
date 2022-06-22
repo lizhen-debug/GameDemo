@@ -28,10 +28,10 @@ public static class Event
         Debug.Log("Cook");
 
 
-        if (!GlobalFunctions.PrepareFoodQTE.is_active)
-            GlobalFunctions.PrepareFoodQTE.ActiveQTE();
+        if (!GlobalFunctions.PickFood.is_active)
+            GlobalFunctions.PickFood.ActivePickFood();
         else
-            GlobalFunctions.PrepareFoodQTE.DeactiveQTE();
+            GlobalFunctions.PickFood.DeactivePickFood();
 
     }
     public static void Chat(Player player)
