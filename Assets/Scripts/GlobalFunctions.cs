@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Data;
 using System.IO;
+using System.Text.RegularExpressions;
 
 public static class GlobalFunctions
 {
@@ -20,6 +21,8 @@ public static class GlobalFunctions
 
     public static DataTable random_event_dt;
     public static DataTable food_qte_dt;
+
+    public static List<Recipe> recipe_arr = new List<Recipe>();
 
     public enum OperateType
     {
@@ -75,7 +78,7 @@ public static class GlobalFunctions
 
     public static void ChangeRandomEventUIVisible()
     {
-        randomEventUI.gameObject.SetActive(!randomEventUI.gameObject.active);
+        randomEventUI.gameObject.SetActive(!randomEventUI.gameObject.activeSelf);
     }
    
     public static DataTable ReadCSV(string file_path)
@@ -90,9 +93,9 @@ public static class GlobalFunctions
                 string[] table_head = null;
                 int colum_count = 0;
                 bool is_first_line = true;
-                while((str_line=sr.ReadLine())!=null)
+                while(!String.IsNullOrWhiteSpace(str_line = sr.ReadLine()))
                 {
-                    if(is_first_line==true)
+                    if (is_first_line==true)
                     {
                         table_head = str_line.Split(',');
                         is_first_line = false;
@@ -114,11 +117,35 @@ public static class GlobalFunctions
                         dt.Rows.Add(dr);
                     }
                 }
-                
                 sr.Close();
                 fs.Close();
                 return dt;
             }
+        }
+    }
+
+    public static void ReadRecipeCSV(string file_path)
+    {
+        string ingredient_pattern = "[a-zA-Z]+";
+        string num_pattern = "\\d+";
+        DataTable dt = ReadCSV(file_path);
+        
+        foreach (DataRow r in dt.Rows)
+        {
+            string str = r["ingredient"].ToString();
+            Regex rgx = new Regex(ingredient_pattern);
+            var ingredients_names = rgx.Matches(str);
+            rgx = new Regex(num_pattern);
+            var nums = rgx.Matches(str);
+            Dictionary<string, int> ingredients = new Dictionary<string, int>();
+
+            for(int i = 0; i < ingredients_names.Count; i++)
+            {
+                ingredients.Add(ingredients_names[i].Value, int.Parse(nums[i].Value));
+            }
+
+            Recipe recipe = new Recipe(r["name"].ToString(), int.Parse(r["fullness"].ToString()), int.Parse(r["spirit"].ToString()), ingredients);
+            recipe_arr.Add(recipe);
         }
     }
 
