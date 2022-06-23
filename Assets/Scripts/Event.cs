@@ -26,10 +26,17 @@ public static class Event
     public static void Cook(Player player)
     {
         Debug.Log("Cook");
-
+        Recipe recipe = new Recipe();
+        recipe.name = "fanqiechaodan";
+        recipe.fullness = 10;
+        recipe.spirite = 10;
+        Dictionary<string, int> keyValuePairs = new Dictionary<string, int>();
+        keyValuePairs.Add("tomato", 1);
+        keyValuePairs.Add("egg", 2);
+        recipe.ingredients = keyValuePairs;
 
         if (!GlobalFunctions.PickFood.is_active)
-            GlobalFunctions.PickFood.ActivePickFood();
+            GlobalFunctions.PickFood.ActivePickFood(recipe);
         else
             GlobalFunctions.PickFood.DeactivePickFood();
 
