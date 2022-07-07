@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,35 +7,35 @@ using UnityEngine.UI;
 
 public class DragUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    [Header("ÊÇ·ñ¾«×¼ÍÏ×§")]
+    [Header("æ˜¯å¦ç²¾å‡†æ‹–æ‹½")]
     public bool m_isPrecision = true;
 
-    //´æ´¢Í¼Æ¬ÖĞĞÄµãÓëÊó±êµã»÷µãµÄÆ«ÒÆÁ¿
+    //å­˜å‚¨å›¾ç‰‡ä¸­å¿ƒç‚¹ä¸é¼ æ ‡ç‚¹å‡»ç‚¹çš„åç§»é‡
     private Vector3 m_offset;
 
-    //´æ´¢µ±Ç°ÍÏ×§Í¼Æ¬µÄRectTransform×é¼ş
+    //å­˜å‚¨å½“å‰æ‹–æ‹½å›¾ç‰‡çš„RectTransformç»„ä»¶
     private RectTransform m_rt;
 
     void Start()
     {
-        //³õÊ¼»¯
+        //åˆå§‹åŒ–
         m_rt = gameObject.GetComponent<RectTransform>();
     }
 
-    //¿ªÊ¼ÍÏ×§´¥·¢
+    //å¼€å§‹æ‹–æ‹½è§¦å‘
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //Èç¹û¾«×¼ÍÏ×§Ôò½øĞĞ¼ÆËãÆ«ÒÆÁ¿²Ù×÷
+        //å¦‚æœç²¾å‡†æ‹–æ‹½åˆ™è¿›è¡Œè®¡ç®—åç§»é‡æ“ä½œ
         if (m_isPrecision)
         {
-            //´æ´¢µã»÷Ê±µÄÊó±ê×ø±ê
+            //å­˜å‚¨ç‚¹å‡»æ—¶çš„é¼ æ ‡åæ ‡
             Vector3 tWorldPos;
-            //UIÆÁÄ»×ø±ê×ª»»ÎªÊÀ½ç×ø±ê
+            //UIå±å¹•åæ ‡è½¬æ¢ä¸ºä¸–ç•Œåæ ‡
             RectTransformUtility.ScreenPointToWorldPointInRectangle(m_rt, eventData.position, eventData.pressEventCamera, out tWorldPos);
-            //¼ÆËãÆ«ÒÆÁ¿
+            //è®¡ç®—åç§»é‡
             m_offset = transform.position - tWorldPos;
         }
-        //·ñÔò Ä¬ÈÏÆ«ÒÆÁ¿Îª0
+        //å¦åˆ™ é»˜è®¤åç§»é‡ä¸º0
         else
         {
             m_offset = Vector3.zero;
@@ -43,14 +43,14 @@ public class DragUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         SetDraggedPosition(eventData);
     }
 
-    //ÍÏ×§¹ı³ÌÖĞ´¥·¢
+    //æ‹–æ‹½è¿‡ç¨‹ä¸­è§¦å‘
     public void OnDrag(PointerEventData eventData)
     {
         SetDraggedPosition(eventData);
         m_rt.SetAsLastSibling();
     }
 
-    //½áÊøÍÏ×§´¥·¢
+    //ç»“æŸæ‹–æ‹½è§¦å‘
     public void OnEndDrag(PointerEventData eventData)
     {
         SetDraggedPosition(eventData);
@@ -63,15 +63,15 @@ public class DragUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     }
 
   
-    // ÉèÖÃÍ¼Æ¬Î»ÖÃ·½·¨
+    // è®¾ç½®å›¾ç‰‡ä½ç½®æ–¹æ³•
     private void SetDraggedPosition(PointerEventData eventData)
     {
-        //´æ´¢µ±Ç°Êó±êËùÔÚÎ»ÖÃ
+        //å­˜å‚¨å½“å‰é¼ æ ‡æ‰€åœ¨ä½ç½®
         Vector3 globalMousePos;
-        //UIÆÁÄ»×ø±ê×ª»»ÎªÊÀ½ç×ø±ê
+        //UIå±å¹•åæ ‡è½¬æ¢ä¸ºä¸–ç•Œåæ ‡
         if (RectTransformUtility.ScreenPointToWorldPointInRectangle(m_rt, eventData.position, eventData.pressEventCamera, out globalMousePos))
         {
-            //ÉèÖÃÎ»ÖÃ¼°Æ«ÒÆÁ¿
+            //è®¾ç½®ä½ç½®åŠåç§»é‡
             m_rt.position = globalMousePos + m_offset;
         }
     }
