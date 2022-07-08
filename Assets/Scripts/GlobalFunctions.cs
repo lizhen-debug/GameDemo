@@ -24,6 +24,7 @@ public static class GlobalFunctions
 
     public static List<Recipe> recipe_arr = new List<Recipe>();
 
+
     public enum OperateType
     {
         INCREASE, DECREASE,
@@ -40,6 +41,8 @@ public static class GlobalFunctions
         act_arr.Add(() => Event.ViewNews(player));
         act_arr.Add(() => Event.RandomEvent(player, 1));
         act_arr.Add(() => Event.RandomEvent(player, 2));
+
+        
     }
 
     public static void ChangeCamera(int cam_idx)
@@ -144,7 +147,10 @@ public static class GlobalFunctions
                 ingredients.Add(ingredients_names[i].Value, int.Parse(nums[i].Value));
             }
 
-            Recipe recipe = new Recipe(r["name"].ToString(), int.Parse(r["fullness"].ToString()), int.Parse(r["spirit"].ToString()), ingredients);
+            Sprite sprite = Resources.Load<Sprite>(r["name"].ToString());
+
+            Recipe recipe = new Recipe(r["name"].ToString(), int.Parse(r["fullness"].ToString()), int.Parse(r["spirit"].ToString()), ingredients, sprite);
+            
             recipe_arr.Add(recipe);
         }
     }

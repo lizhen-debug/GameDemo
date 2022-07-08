@@ -28,15 +28,17 @@ public class PickFood : MonoBehaviour
         //}
     }
 
-    public void ActivePickFood(Recipe recipe)
+    public void ActivePickFood(List<Item> inventory)
     {
+       
+        
         gameObject.SetActive(true);
         is_active = true;
         int i = 0;
-        foreach (KeyValuePair<string, int> keyValue in recipe.ingredients)
+        foreach (Item item in inventory)
         {
-            string name = keyValue.Key;
-            int num = keyValue.Value;
+            string name = item.name;
+            int num = item.num;
             print(name);
             print(num);
 

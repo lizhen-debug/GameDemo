@@ -15,7 +15,7 @@ public class Initialization : MonoBehaviour
     public PrepareFoodQTE PrepareFoodQTE;
     public PickFood PickFood;
 
-    Player player;
+    public Player player;
     PlayerChangeInfo PlayerChangeInfo;
     void Start()
     {
