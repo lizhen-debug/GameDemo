@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class DishSelection : MonoBehaviour
 {
+    public GameObject recipe_info;
     public Button cook_btn;
     public GameObject dish_ref;
     public Transform dish_bg;
@@ -43,13 +46,17 @@ public class DishSelection : MonoBehaviour
         foreach (Recipe recipe in GlobalFunctions.recipe_arr)
         {
             GameObject dish = Instantiate(dish_ref, dish_bg);
+            dish.GetComponent<RectTransform>().anchoredPosition = dish_pos;
+            GameObject dish_name_text = dish.transform.GetChild(0).gameObject;
+            dish_name_text.GetComponent<TextMeshProUGUI>().text = recipe.name;
+            // update pos for next recipe
             dish_pos += new Vector2(dish_pos_gap.x, 0);
             if (dish_pos.x > max_pos.x)
             {
                 dish_pos = new Vector2(ref_pos.x, dish_pos.y + dish_pos_gap.y); // new row
             }
-            dish.GetComponent<RectTransform>().anchoredPosition = dish_pos;
         }
+        dish_ref.SetActive(false);
     }
     void DisplayRecipes()
     {
