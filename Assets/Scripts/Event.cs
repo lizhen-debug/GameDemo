@@ -85,7 +85,7 @@ public static class Event
         GlobalFunctions.ChangeRandomEventUIVisible();
 
         
-        if (GlobalFunctions.randomEventUI.gameObject.active)
+        if (GlobalFunctions.randomEventUI.gameObject.activeInHierarchy)
         {
 
             for (int i = 0; i < btn_num ; i++)

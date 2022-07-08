@@ -1,6 +1,6 @@
 name,fullness,spirit,ingredient
-fan_qie_chao_dan1,5,10,tomato:1 | potato:2
+fan_qie_chao_dan1,5,10,tomato:1 | potato:2 | baicai:1
 fan_qie_chao_dan2,5,10,tomato:2 | potato:2
 fan_qie_chao_dan3,5,10,tomato:3 | potato:2
-fan_qie_chao_dan4,5,10,tomato:4 | potato:2
+fan_qie_chao_dan4,5,10,tomato:4 | potato:2 | qingjiao: 2
 fan_qie_chao_dan5,5,10,tomato:5 | potato:3
