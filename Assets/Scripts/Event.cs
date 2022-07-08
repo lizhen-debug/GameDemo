@@ -29,7 +29,7 @@ public static class Event
         Recipe recipe = new Recipe();
         recipe.name = "fanqiechaodan";
         recipe.fullness = 10;
-        recipe.spirite = 10;
+        recipe.spirit = 10;
         Dictionary<string, int> keyValuePairs = new Dictionary<string, int>();
         keyValuePairs.Add("tomato", 1);
         keyValuePairs.Add("egg", 2);

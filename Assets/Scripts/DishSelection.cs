@@ -21,8 +21,8 @@ public class DishSelection : MonoBehaviour
         cook_btn.onClick.AddListener(Cook);
         // read csv
         GlobalFunctions.ReadRecipeCSV(csv_file_path);
-        // DisplayRecipes();
-
+        //DisplayRecipes();
+        test();
     }
 
     // Update is called once per frame
@@ -36,6 +36,21 @@ public class DishSelection : MonoBehaviour
         Debug.Log("start cooking");
     }
 
+    void test()
+    {
+        Vector2 ref_pos = dish_ref.GetComponent<RectTransform>().anchoredPosition;
+        Vector2 dish_pos = ref_pos;
+        foreach (Recipe recipe in GlobalFunctions.recipe_arr)
+        {
+            GameObject dish = Instantiate(dish_ref, dish_bg);
+            dish_pos += new Vector2(dish_pos_gap.x, 0);
+            if (dish_pos.x > max_pos.x)
+            {
+                dish_pos = new Vector2(ref_pos.x, dish_pos.y + dish_pos_gap.y); // new row
+            }
+            dish.GetComponent<RectTransform>().anchoredPosition = dish_pos;
+        }
+    }
     void DisplayRecipes()
     {
         DataTable dt = GlobalFunctions.ReadCSV(csv_file_path);
