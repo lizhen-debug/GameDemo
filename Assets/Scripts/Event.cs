@@ -36,7 +36,10 @@ public static class Event
         recipe.ingredients = keyValuePairs;
 
         if (!GlobalFunctions.PickFood.is_active)
-            GlobalFunctions.PickFood.ActivePickFood(recipe);
+        {
+            Debug.Log(player.player_info);
+            GlobalFunctions.PickFood.ActivePickFood(player.player_info.Inventory);
+        }    
         else
             GlobalFunctions.PickFood.DeactivePickFood();
 
