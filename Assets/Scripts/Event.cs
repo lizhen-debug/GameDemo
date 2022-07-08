@@ -26,14 +26,11 @@ public static class Event
     public static void Cook(Player player)
     {
         Debug.Log("Cook");
-        Recipe recipe = new Recipe();
-        recipe.name = "fanqiechaodan";
-        recipe.fullness = 10;
-        recipe.spirit = 10;
-        Dictionary<string, int> keyValuePairs = new Dictionary<string, int>();
-        keyValuePairs.Add("tomato", 1);
-        keyValuePairs.Add("egg", 2);
-        recipe.ingredients = keyValuePairs;
+
+        Item tomato = new Item("tomato", 10, 3);
+        Item egg = new Item("egg", 10, 2);
+        player.player_info.Inventory.Add(tomato);
+        player.player_info.Inventory.Add(egg);
 
         if (!GlobalFunctions.PickFood.is_active)
         {

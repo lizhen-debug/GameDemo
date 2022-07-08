@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class PickFood : MonoBehaviour
 {
     // Start is called before the first frame update
-    List<GameObject> current_recipe_used_food = new List<GameObject>();
+    List<GameObject> pickfood_add_gameobject = new List<GameObject>();//这个类新增的游戏对象list，用于销毁
     public bool is_active;
     //public DragUI dragUI;
     void Start()
@@ -30,30 +30,33 @@ public class PickFood : MonoBehaviour
 
     public void ActivePickFood(List<Item> inventory)
     {
-       
-        
+        pickfood_add_gameobject.Clear();
         gameObject.SetActive(true);
         is_active = true;
-        int i = 0;
+        int i = 1;
         foreach (Item item in inventory)
         {
             string name = item.name;
             int num = item.num;
             print(name);
             print(num);
-
+            
             GameObject food_sprite = new GameObject();
             food_sprite.layer = 5;
             food_sprite.name = name;
             food_sprite.AddComponent<DragUI>();
             food_sprite.AddComponent<Image>();
             food_sprite.GetComponent<Image>().sprite = Resources.Load<Sprite>(name);
-
+            
             food_sprite.transform.parent = gameObject.transform;
-            food_sprite.transform.SetPositionAndRotation(new Vector3(160+i*200, -90+540, 0), new Quaternion(0, 0, 0, 0));
-            food_sprite.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 200);
 
-            current_recipe_used_food.Add(food_sprite);
+            int x = i / 3;
+            int y = i % 3 - 1;
+            food_sprite.transform.SetPositionAndRotation(GlobalFunctions.foodBsaketBlanks[x,y].position, GlobalFunctions.foodBsaketBlanks[x, y].rotation);
+            food_sprite.GetComponent<RectTransform>().sizeDelta = GlobalFunctions.foodBsaketBlanks[x, y].scale;
+            
+            pickfood_add_gameobject.Add(food_sprite);
+           
             i++;
          
         }
@@ -63,10 +66,11 @@ public class PickFood : MonoBehaviour
         gameObject.SetActive(false);
         is_active = false;
 
-        foreach(GameObject gameObject in current_recipe_used_food)
+        foreach(GameObject gameObject in pickfood_add_gameobject)
         {
             Destroy(gameObject);
         }
+        
     }
 
 }

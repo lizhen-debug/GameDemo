@@ -32,6 +32,7 @@ public class Initialization : MonoBehaviour
         GlobalFunctions.randomEventUI = randomEventUI;
         GlobalFunctions.PrepareFoodQTE= PrepareFoodQTE;
         GlobalFunctions.PickFood = PickFood;
+        GlobalFunctions.InitFoodBasket();
         for (int i = 0; i < act_btn_arr.Count; i++)
         {
             int idx = i;

@@ -75,3 +75,10 @@ public class ActionInfo : Info
 {
     public ActionInfo(int min = 0, int max = 10, int cur = 0) : base(min, max, cur) { }
 }
+
+public class FoodBsaketBlank
+{
+    public Vector3 position = new Vector3();
+    public Quaternion rotation = new Quaternion();
+    public Vector2 scale = new Vector2();
+}

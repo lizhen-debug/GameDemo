@@ -24,6 +24,7 @@ public static class GlobalFunctions
 
     public static List<Recipe> recipe_arr = new List<Recipe>();
 
+    public static FoodBsaketBlank[,] foodBsaketBlanks = new FoodBsaketBlank[4, 3];
 
     public enum OperateType
     {
@@ -153,6 +154,64 @@ public static class GlobalFunctions
             
             recipe_arr.Add(recipe);
         }
+    }
+
+    public static void InitFoodBasket()
+    {
+        for(int i=0;i<4;i++)
+        {
+            for(int j=0;j<3;j++)
+                foodBsaketBlanks[i, j] = new FoodBsaketBlank();
+        }
+
+        foodBsaketBlanks[0, 0].position = new Vector3(960 + 30, 540 + 30, 0);
+        foodBsaketBlanks[0, 0].rotation = new Quaternion(0, 0, 0, 0);
+        foodBsaketBlanks[0, 0].scale = new Vector2(100, 100);
+
+        foodBsaketBlanks[0, 1].position = new Vector3(960 + 10, 540 + 10, 0);
+        foodBsaketBlanks[0, 1].rotation = new Quaternion(0, 0, 0, 0);
+        foodBsaketBlanks[0, 1].scale = new Vector2(100, 100);
+
+        foodBsaketBlanks[0, 2].position = new Vector3(0, 0, 0);
+        foodBsaketBlanks[0, 2].rotation = new Quaternion(0, 0, 0, 0);
+        foodBsaketBlanks[0, 2].scale = new Vector2(1, 1);
+
+        foodBsaketBlanks[1, 0].position = new Vector3(0, 0, 0);
+        foodBsaketBlanks[1, 0].rotation = new Quaternion(0, 0, 0, 0);
+        foodBsaketBlanks[1, 0].scale = new Vector2(1, 1);
+
+        foodBsaketBlanks[1, 1].position = new Vector3(0, 0, 0);
+        foodBsaketBlanks[1, 1].rotation = new Quaternion(0, 0, 0, 0);
+        foodBsaketBlanks[1, 1].scale = new Vector2(1, 1);
+
+        foodBsaketBlanks[1, 2].position = new Vector3(0, 0, 0);
+        foodBsaketBlanks[1, 2].rotation = new Quaternion(0, 0, 0, 0);
+        foodBsaketBlanks[1, 2].scale = new Vector2(1, 1);
+
+        foodBsaketBlanks[2, 0].position = new Vector3(0, 0, 0);
+        foodBsaketBlanks[2, 0].rotation = new Quaternion(0, 0, 0, 0);
+        foodBsaketBlanks[2, 0].scale = new Vector2(1, 1);
+
+        foodBsaketBlanks[2, 1].position = new Vector3(0, 0, 0);
+        foodBsaketBlanks[2, 1].rotation = new Quaternion(0, 0, 0, 0);
+        foodBsaketBlanks[2, 1].scale = new Vector2(1, 1);
+
+        foodBsaketBlanks[2, 2].position = new Vector3(0, 0, 0);
+        foodBsaketBlanks[2, 2].rotation = new Quaternion(0, 0, 0, 0);
+        foodBsaketBlanks[2, 2].scale = new Vector2(1, 1);
+
+        foodBsaketBlanks[3, 0].position = new Vector3(0, 0, 0);
+        foodBsaketBlanks[3, 0].rotation = new Quaternion(0, 0, 0, 0);
+        foodBsaketBlanks[3, 0].scale = new Vector2(1, 1);
+
+        foodBsaketBlanks[3, 1].position = new Vector3(0, 0, 0);
+        foodBsaketBlanks[3, 1].rotation = new Quaternion(0, 0, 0, 0);
+        foodBsaketBlanks[3, 1].scale = new Vector2(1, 1);
+
+        foodBsaketBlanks[3, 2].position = new Vector3(0, 0, 0);
+        foodBsaketBlanks[3, 2].rotation = new Quaternion(0, 0, 0, 0);
+        foodBsaketBlanks[3, 2].scale = new Vector2(1, 1);
+
     }
 
 }
