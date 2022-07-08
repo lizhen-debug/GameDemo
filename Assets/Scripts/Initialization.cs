@@ -39,8 +39,12 @@ public class Initialization : MonoBehaviour
             act_btn_arr[i].GetComponent<Button>().onClick.AddListener(() => GlobalFunctions.InvokeAction(idx));
         }
 
-        string csv_file_path = Application.streamingAssetsPath + "\\data.csv";
-        GlobalFunctions.random_event_dt = GlobalFunctions.ReadCSV(csv_file_path);
+        string random_event_file_path = Application.streamingAssetsPath + "\\data.csv";
+        GlobalFunctions.random_event_dt = GlobalFunctions.ReadCSV(random_event_file_path);
+
+        // read recipe csv
+        string recipe_file_path = Application.streamingAssetsPath + "\\cook.csv";
+        GlobalFunctions.ReadRecipeCSV(recipe_file_path);
     }
 
     // Update is called once per frame
