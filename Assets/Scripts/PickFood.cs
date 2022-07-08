@@ -53,8 +53,7 @@ public class PickFood : MonoBehaviour
 
             current_recipe_used_food.Add(food_sprite);
             i++;
-            
-            
+         
         }
     }
     public void DeactivePickFood()

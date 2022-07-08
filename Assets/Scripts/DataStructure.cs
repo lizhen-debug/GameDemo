@@ -20,14 +20,14 @@ public class Recipe
 {
     public string name;
     public int fullness;
-    public int spirite;
+    public int spirit;
     public Dictionary<string, int> ingredients;
 
-    public Recipe(string name = "", int fullness = 0, int spirite = 0, Dictionary<string, int> ingredients = null)
+    public Recipe(string name = "", int fullness = 0, int spirit = 0, Dictionary<string, int> ingredients = null)
     {
         this.name = name;
         this.fullness = fullness;
-        this.spirite = spirite;
+        this.spirit = spirit;
         this.ingredients = ingredients;
     }
 }
