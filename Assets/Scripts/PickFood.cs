@@ -9,7 +9,7 @@ public class PickFood : MonoBehaviour
     // Start is called before the first frame update
     List<GameObject> current_recipe_used_food = new List<GameObject>();
     public bool is_active;
-    public DragUI dragUI;
+    //public DragUI dragUI;
     void Start()
     {
         is_active = false;
