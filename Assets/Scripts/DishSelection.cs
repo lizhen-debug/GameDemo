@@ -15,7 +15,6 @@ public class DishSelection : MonoBehaviour
     public Vector2 dish_pos_gap;
     public Vector2 max_pos;
 
-    string csv_file_path = Application.streamingAssetsPath + "\\cook.csv";
 
     // Start is called before the first frame update
     void Start()
