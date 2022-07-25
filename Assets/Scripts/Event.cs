@@ -28,7 +28,7 @@ public static class Event
         Debug.Log("Cook");
 
         Item tomato = new Item("tomato", 10, 3);
-        Item egg = new Item("egg", 10, 2);
+        Item egg = new Item("eggs", 10, 2);
         player.player_info.Inventory.Add(tomato);
         player.player_info.Inventory.Add(egg);
 

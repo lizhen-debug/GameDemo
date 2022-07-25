@@ -20,12 +20,12 @@ public class knife_move : MonoBehaviour
 
         if (hit_frame > 0 && val > -0.1 && val < 0.1)
         {
-            Debug.Log("if: " + hit_frame);
+            //Debug.Log("if: " + hit_frame);
             hit_frame--;
         }
         else
         {
-            Debug.Log("else: " + hit_frame);
+            //Debug.Log("else: " + hit_frame);
             timer += Time.fixedDeltaTime;
             val = Mathf.Sin(timer);
             hit_frame = hit_frame_defined;
