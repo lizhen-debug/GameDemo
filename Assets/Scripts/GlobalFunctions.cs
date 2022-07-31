@@ -30,7 +30,7 @@ public static class GlobalFunctions
     public static Dictionary<Transform, bool> outline_status = new Dictionary<Transform, bool>();
     public static Transform mouse_hovered_obj;
     public static Dictionary<string, Vector3> area_anchor = new Dictionary<string, Vector3>();
-    public static Dictionary<string, bool> area_bounding_boxes = new Dictionary<string, bool>();
+    public static Dictionary<string, bool> outline_objs = new Dictionary<string, bool>();
 
     public enum OperateType
     {
@@ -225,24 +225,14 @@ public static class GlobalFunctions
 
     private static void ActivateOutline(Transform obj)
     {
-        area_bounding_boxes[obj.name] = true;
-        foreach (Transform child in obj.transform.parent) //child is your child transform
-        {
-            var outline = child.gameObject.GetComponent<Outline>();
-            if (outline)
-                child.GetComponent<Outline>().enabled = true;
-        }
+        outline_objs[obj.name] = true;
+        obj.GetComponent<Outline>().enabled = true;
     }
 
     private static void RemoveOutline(Transform obj)
     {
-        area_bounding_boxes[obj.name] = false;
-        foreach (Transform child in obj.transform.parent) //child is your child transform
-        {
-            var outline = child.gameObject.GetComponent<Outline>();
-            if (outline)
-                child.GetComponent<Outline>().enabled = false;
-        }
+        outline_objs[obj.name] = false;
+        obj.GetComponent<Outline>().enabled = false;
     }
 
     private static void OutlineHandler()
@@ -253,16 +243,16 @@ public static class GlobalFunctions
         {
             GameObject hit_obj = hit.collider.gameObject;
 
-            if (area_bounding_boxes.ContainsKey(hit_obj.name))
+            if (outline_objs.ContainsKey(hit_obj.name))
             {
-                bool is_outline_on = area_bounding_boxes[hit_obj.name];
+                bool is_outline_on = outline_objs[hit_obj.name];
                 mouse_hovered_obj = hit_obj.transform;
                 if (!is_outline_on)
                     ActivateOutline(mouse_hovered_obj);
             }
             else
             {
-                if (mouse_hovered_obj && area_bounding_boxes[mouse_hovered_obj.name])
+                if (mouse_hovered_obj && outline_objs[mouse_hovered_obj.name])
                     RemoveOutline(mouse_hovered_obj);
                 mouse_hovered_obj = null;
             }
@@ -270,7 +260,7 @@ public static class GlobalFunctions
 
         else
         {
-            if (mouse_hovered_obj && area_bounding_boxes[mouse_hovered_obj.name])
+            if (mouse_hovered_obj && outline_objs[mouse_hovered_obj.name])
                 RemoveOutline(mouse_hovered_obj);
             mouse_hovered_obj = null;
         }
@@ -290,11 +280,12 @@ public static class GlobalFunctions
         }
     }
 
-    public static void InitializeObjOutlines(List<Transform> bounding_boxes)
+    public static void InitializeObjOutlines(List<Transform> objs)
     {
-        foreach (var bbx in bounding_boxes)
+        foreach (var obj in objs)
         {
-            area_bounding_boxes.Add(bbx.name, false);
+            obj.GetComponent<Outline>().enabled = false;
+            outline_objs.Add(obj.name, false);
         }
     }
 
