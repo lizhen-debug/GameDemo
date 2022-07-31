@@ -25962,6 +25962,9 @@ MonoBehaviour:
   - {fileID: 2017962850}
   - {fileID: 849952341}
   navMeshAgent: {fileID: 1309143211}
+  area_bounding_boxes:
+  - {fileID: 1844045252}
+  - {fileID: 361514543}
 --- !u!4 &1665595609
 Transform:
   m_ObjectHideFlags: 0

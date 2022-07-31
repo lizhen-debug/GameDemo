@@ -30,6 +30,7 @@ public static class GlobalFunctions
     public static Dictionary<Transform, bool> outline_status = new Dictionary<Transform, bool>();
     public static Transform mouse_hovered_obj;
     public static Dictionary<string, Vector3> area_anchor = new Dictionary<string, Vector3>();
+    public static Dictionary<string, bool> area_bounding_boxes = new Dictionary<string, bool>();
 
     public enum OperateType
     {
@@ -222,59 +223,63 @@ public static class GlobalFunctions
         Cursor.SetCursor(cursor, new Vector2(cursor.width / 2, cursor.height / 2), CursorMode.Auto);
     }
 
+    private static void ActivateOutline(Transform obj)
+    {
+        area_bounding_boxes[obj.name] = true;
+        foreach (Transform child in obj.transform.parent) //child is your child transform
+        {
+            var outline = child.gameObject.GetComponent<Outline>();
+            if (outline)
+                child.GetComponent<Outline>().enabled = true;
+        }
+    }
 
-    public static void MouseHover()
+    private static void RemoveOutline(Transform obj)
+    {
+        area_bounding_boxes[obj.name] = false;
+        foreach (Transform child in obj.transform.parent) //child is your child transform
+        {
+            var outline = child.gameObject.GetComponent<Outline>();
+            if (outline)
+                child.GetComponent<Outline>().enabled = false;
+        }
+    }
+
+    private static void OutlineHandler()
     {
         RaycastHit hit;
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        Action<Transform> ActivateOutline = (obj) =>
-        {
-            foreach (Transform child in obj.transform.parent) //child is your child transform
-            {
-                var outline = child.gameObject.GetComponent<Outline>();
-                if (outline)
-                    child.GetComponent<Outline>().enabled = true;
-            }
-        };
-
-        Action<Transform> RemoveOutline = (obj) =>
-        {
-            foreach (Transform child in obj.transform.parent) //child is your child transform
-            {
-                var outline = child.gameObject.GetComponent<Outline>();
-                if (outline)
-                    child.GetComponent<Outline>().enabled = false;
-            }
-        };
-
         if (Physics.Raycast(ray, out hit))
         {
             GameObject hit_obj = hit.collider.gameObject;
 
-            switch (hit_obj.name)
+            if (area_bounding_boxes.ContainsKey(hit_obj.name))
             {
-                case "kitchen_bbx":
-                    mouse_hovered_obj = hit_obj.transform;
+                bool is_outline_on = area_bounding_boxes[hit_obj.name];
+                mouse_hovered_obj = hit_obj.transform;
+                if (!is_outline_on)
                     ActivateOutline(mouse_hovered_obj);
-                    break;
-                case "entrance_door_bbx":
-                    mouse_hovered_obj = hit_obj.transform;
-                    ActivateOutline(mouse_hovered_obj);
-                    break;
-                default:
-                    if(mouse_hovered_obj)   
-                        RemoveOutline(mouse_hovered_obj);
-                    mouse_hovered_obj = null;
-                    break;
-            }     
+            }
+            else
+            {
+                if (mouse_hovered_obj && area_bounding_boxes[mouse_hovered_obj.name])
+                    RemoveOutline(mouse_hovered_obj);
+                mouse_hovered_obj = null;
+            }
         }
+
         else
         {
-            if (mouse_hovered_obj)  
+            if (mouse_hovered_obj && area_bounding_boxes[mouse_hovered_obj.name])
                 RemoveOutline(mouse_hovered_obj);
             mouse_hovered_obj = null;
         }
+
+    }
+
+    public static void MouseHover()
+    {
+        OutlineHandler();
     }
 
     public static void InitializeAreaAnchors(List<Transform> destinations)
@@ -282,6 +287,14 @@ public static class GlobalFunctions
         foreach(var dest in destinations)
         {
             area_anchor.Add(dest.parent.name, dest.position);
+        }
+    }
+
+    public static void InitializeObjOutlines(List<Transform> bounding_boxes)
+    {
+        foreach (var bbx in bounding_boxes)
+        {
+            area_bounding_boxes.Add(bbx.name, false);
         }
     }
 
