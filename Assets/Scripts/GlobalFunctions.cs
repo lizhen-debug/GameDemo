@@ -39,6 +39,7 @@ public static class GlobalFunctions
 
     public static void InitializeAction(Player player)
     {
+        
         act_arr.Add(() => Event.FeedCat(player));
         act_arr.Add(() => Event.CovidTest(player));
         act_arr.Add(() => Event.EatFood(player));

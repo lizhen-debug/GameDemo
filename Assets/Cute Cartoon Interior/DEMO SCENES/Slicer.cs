@@ -96,18 +96,18 @@ public class Slicer : MonoBehaviour
             transform.Translate(0, movespeed * Time.deltaTime * (-1), 0, Space.World);
 
         }
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    StartPosition = Input.mousePosition;  //记录鼠标按下的时候的鼠标位置
-        //    previousPosition = Input.mousePosition;  //记录下当前这一帧的鼠标位置
-        //}
-        //if (Input.GetMouseButton(0))
-        //{
-        //    offset = Input.mousePosition - previousPosition; //这一帧鼠标的位置减去上一帧鼠标的位置就是鼠标的偏移量 
-        //    previousPosition = Input.mousePosition; //再次记录当前鼠标的位置，以备下一帧求offset使用。
-        //    Vector3 Xoffset = new Vector3(-offset.x, 0, 0);//过滤掉鼠标在Y轴方向上的偏移量，只保留X轴的
-        //    transform.Rotate(Vector3.Cross(Xoffset, Vector3.forward).normalized, offset.magnitude, Space.World);  //旋转
-        //}
+        if (Input.GetMouseButtonDown(0))
+        {
+            StartPosition = Input.mousePosition;  //记录鼠标按下的时候的鼠标位置
+            previousPosition = Input.mousePosition;  //记录下当前这一帧的鼠标位置
+        }
+        if (Input.GetMouseButton(0))
+        {
+            offset = Input.mousePosition - previousPosition; //这一帧鼠标的位置减去上一帧鼠标的位置就是鼠标的偏移量 
+            previousPosition = Input.mousePosition; //再次记录当前鼠标的位置，以备下一帧求offset使用。
+            Vector3 Xoffset = new Vector3(-offset.x, 0, 0);//过滤掉鼠标在Y轴方向上的偏移量，只保留X轴的
+            transform.Rotate(Vector3.Cross(Xoffset, Vector3.forward).normalized, offset.magnitude, Space.World);  //旋转
+        }
         if (Input.GetKeyDown(KeyCode.Q))
         {
             //foreach (GameObject obj in gameObjects_to_slice)
