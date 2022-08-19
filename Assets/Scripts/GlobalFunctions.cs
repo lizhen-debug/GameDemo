@@ -7,30 +7,53 @@ using System.Data;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine.AI;
+using UnityEditor;
 
 public static class GlobalFunctions
 {
    
-    //public static Player player;
-    public static List<GameObject> cam_arr = new List<GameObject>();
-    public static int cur_cam_idx = 0;
+    public static Player player;
+    
+    public static List<Camera> cam_arr = new List<Camera>();
 
     public static List<Action> act_arr = new List<Action>();
-    public static RandomEventUI randomEventUI;
-    public static PrepareFoodQTE PrepareFoodQTE;
-    public static PickFood PickFood;
 
+    public static RandomEventUI randomEventUI;
     public static DataTable random_event_dt;
-    public static DataTable food_qte_dt;
+   
 
     public static List<Recipe> recipe_arr = new List<Recipe>();
+    
 
+    public static DataTable food_qte_dt;
+    public static PrepareFoodQTE PrepareFoodQTE;
+    public static PickFood PickFood;
     public static FoodBsaketBlank[,] foodBsaketBlanks = new FoodBsaketBlank[4, 3];
 
-    public static Dictionary<Transform, bool> outline_status = new Dictionary<Transform, bool>();
+
+    //public static Dictionary<Transform, bool> outline_status = new Dictionary<Transform, bool>();
+    
+    
     public static Transform mouse_hovered_obj;
-    public static Dictionary<string, Vector3> area_anchor = new Dictionary<string, Vector3>();
+    
     public static Dictionary<string, bool> outline_objs = new Dictionary<string, bool>();
+    public static Dictionary<string, Vector3> area_anchors = new Dictionary<string, Vector3>();
+
+    public static NavMeshAgent navMeshAgent;
+
+    public static Camera current_camera;
+
+    public static List<GameObject> outline_objects = new List<GameObject>();
+    
+    
+    public enum GameState
+    {
+        MainScene, Cooking,
+    }
+    public static GameState current_state = GameState.MainScene;
+
+
+    public static bool IsActionMode = false;
 
     public enum OperateType
     {
@@ -49,15 +72,17 @@ public static class GlobalFunctions
         act_arr.Add(() => Event.ViewNews(player));
         act_arr.Add(() => Event.RandomEvent(player, 1));
         act_arr.Add(() => Event.RandomEvent(player, 2));
+
+        
     }
 
     public static void ChangeCamera(int cam_idx)
     {
-        cam_arr[cam_idx].SetActive(true);
-        foreach(GameObject cam in cam_arr)
+        cam_arr[cam_idx].enabled = true;
+        foreach(Camera cam in cam_arr)
         {
             if (cam == cam_arr[cam_idx]) { continue; }
-            cam.SetActive(false);
+            cam.enabled = false;
         }
     }
 
@@ -236,36 +261,62 @@ public static class GlobalFunctions
         obj.GetComponent<Outline>().enabled = false;
     }
 
+    public static void ClearAllOutline()
+    {
+        if(outline_objects.Count!=0)
+        {
+            foreach (GameObject gameObject in outline_objects)
+            {
+                gameObject.GetComponent<Outline>().enabled = false;
+            }
+        }
+        
+    }
+
+    private static string temp_name = "";
+    private static Transform temp_object = null;
     private static void OutlineHandler()
     {
-        RaycastHit hit;
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
+        if (outline_objs.Count != 0)
         {
-            GameObject hit_obj = hit.collider.gameObject;
+            RaycastHit hit;
 
-            if (outline_objs.ContainsKey(hit_obj.name))
+            var ray = current_camera.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
             {
-                bool is_outline_on = outline_objs[hit_obj.name];
-                mouse_hovered_obj = hit_obj.transform;
-                if (!is_outline_on)
-                    ActivateOutline(mouse_hovered_obj);
+                GameObject hit_obj = hit.collider.gameObject;
+
+                if (outline_objs.ContainsKey(hit_obj.name))
+                {
+                    if (temp_name != hit_obj.name && temp_name != "")
+                    {
+                        RemoveOutline(temp_object);
+                    }
+                    temp_name = hit_obj.name;
+                    temp_object = hit_obj.transform;
+
+                    hit_obj.GetComponent<Outline>().enabled = true;
+                    bool is_outline_on = outline_objs[hit_obj.name];
+                    mouse_hovered_obj = hit_obj.transform;
+                    if (!is_outline_on)
+                        ActivateOutline(mouse_hovered_obj);
+                }
+                else
+                {
+
+                    if (mouse_hovered_obj)
+                        RemoveOutline(mouse_hovered_obj);
+                    mouse_hovered_obj = null;
+                }
             }
             else
             {
-                if (mouse_hovered_obj && outline_objs[mouse_hovered_obj.name])
+                if (mouse_hovered_obj)
                     RemoveOutline(mouse_hovered_obj);
                 mouse_hovered_obj = null;
             }
         }
-
-        else
-        {
-            if (mouse_hovered_obj && outline_objs[mouse_hovered_obj.name])
-                RemoveOutline(mouse_hovered_obj);
-            mouse_hovered_obj = null;
-        }
-
     }
 
     public static void MouseHover()
@@ -273,16 +324,19 @@ public static class GlobalFunctions
         OutlineHandler();
     }
 
-    public static void InitializeAreaAnchors(List<Transform> destinations)
+    public static void InitializeAreaAnchors(List<GameObject> destinations)
     {
-        foreach(var dest in destinations)
+        area_anchors.Clear();
+        foreach (var dest in destinations)
         {
-            area_anchor.Add(dest.parent.name, dest.position);
+            area_anchors.Add(dest.name, dest.transform.position);
         }
     }
 
-    public static void InitializeObjOutlines(List<Transform> objs)
+    public static void InitializeObjOutlines(List<GameObject> objs)
     {
+        outline_objects = objs;
+        outline_objs.Clear();
         foreach (var obj in objs)
         {
             obj.GetComponent<Outline>().enabled = false;
@@ -290,17 +344,22 @@ public static class GlobalFunctions
         }
     }
 
-    public static void MouseClick(NavMeshAgent navMeshAgent)
+    public static string MoveNavMeshAgent()
     {
-        if (!mouse_hovered_obj) return;
-        if (area_anchor.ContainsKey(mouse_hovered_obj.name))
+        if (!mouse_hovered_obj) return "empty";
+        if (area_anchors.ContainsKey(mouse_hovered_obj.name))
         {
-            var destination = area_anchor[mouse_hovered_obj.name];
+            var destination = area_anchors[mouse_hovered_obj.name];
             navMeshAgent.SetDestination(destination);
+            Debug.Log(mouse_hovered_obj.name);
+            return mouse_hovered_obj.name;
         }
         else
         {
             Debug.Log("cannot find destination!");
+            return "empty";
         }
     }
+
+   
 }

@@ -27,18 +27,29 @@ public static class Event
     {
         Debug.Log("Cook");
 
-        Item tomato = new Item("tomato", 10, 3);
-        Item egg = new Item("eggs", 10, 2);
-        player.player_info.Inventory.Add(tomato);
-        player.player_info.Inventory.Add(egg);
+        Item apple = new Item("apple", 10, 3);
+        Item banana = new Item("banana", 10, 2);
+        player.player_info.Inventory.Add(apple);
+        player.player_info.Inventory.Add(banana);
 
-        if (!GlobalFunctions.PickFood.is_active)
+        foreach (Item item in player.player_info.Inventory)
         {
-            Debug.Log(player.player_info);
-            GlobalFunctions.PickFood.ActivePickFood(player.player_info.Inventory);
-        }    
-        else
-            GlobalFunctions.PickFood.DeactivePickFood();
+            Debug.Log(item.name);
+        }
+        
+
+
+
+
+        
+        //
+        //if (!GlobalFunctions.PickFood.is_active)
+        //{
+        //    Debug.Log(player.player_info);
+        //    GlobalFunctions.PickFood.ActivePickFood(player.player_info.Inventory);
+        //}    
+        //else
+        //    GlobalFunctions.PickFood.DeactivePickFood();
 
     }
     public static void Chat(Player player)

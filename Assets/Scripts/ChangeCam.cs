@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ChangeCam : MonoBehaviour
 {
-    public List<GameObject> cam_arr = new List<GameObject>();
+    public List<Camera> cam_arr = new List<Camera>();
     public List<GameObject> cam_btn_arr = new List<GameObject>();
 
     void Start()

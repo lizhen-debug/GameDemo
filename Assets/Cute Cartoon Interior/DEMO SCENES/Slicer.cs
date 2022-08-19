@@ -38,12 +38,15 @@ public class Slicer : MonoBehaviour
         slice_plane.transform.parent = gameObject.transform;
         slice_plane.name = "slice plane";
         slice_plane.transform.position = transform.position;
-        slice_plane.transform.rotation = Quaternion.Euler(90, 90, 0);
-        slice_plane.GetComponent<MeshRenderer>().material = (Material)AssetDatabase.LoadAssetAtPath("Assets/Brick Project Studio/Apartment Kit/Materials/Surface/White Wine.mat", typeof(Material));
-        slice_plane.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        slice_plane.transform.rotation = Quaternion.Euler(-90, 90, 0);
         
-        slice_plane.GetComponent<MeshCollider>().convex = true;
-        slice_plane.GetComponent<MeshCollider>().isTrigger = true;
+        slice_plane.GetComponent<MeshRenderer>().enabled = false;
+        slice_plane.GetComponent<MeshCollider>().enabled = false;
+        //slice_plane.GetComponent<MeshRenderer>().material = (Material)AssetDatabase.LoadAssetAtPath("Assets/Brick Project Studio/Apartment Kit/Materials/Surface/White Wine.mat", typeof(Material));
+        //slice_plane.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        //
+        //slice_plane.GetComponent<MeshCollider>().convex = true;
+        //slice_plane.GetComponent<MeshCollider>().isTrigger = true;
     }
 
     
@@ -96,18 +99,18 @@ public class Slicer : MonoBehaviour
             transform.Translate(0, movespeed * Time.deltaTime * (-1), 0, Space.World);
 
         }
-        if (Input.GetMouseButtonDown(0))
-        {
-            StartPosition = Input.mousePosition;  //记录鼠标按下的时候的鼠标位置
-            previousPosition = Input.mousePosition;  //记录下当前这一帧的鼠标位置
-        }
-        if (Input.GetMouseButton(0))
-        {
-            offset = Input.mousePosition - previousPosition; //这一帧鼠标的位置减去上一帧鼠标的位置就是鼠标的偏移量 
-            previousPosition = Input.mousePosition; //再次记录当前鼠标的位置，以备下一帧求offset使用。
-            Vector3 Xoffset = new Vector3(-offset.x, 0, 0);//过滤掉鼠标在Y轴方向上的偏移量，只保留X轴的
-            transform.Rotate(Vector3.Cross(Xoffset, Vector3.forward).normalized, offset.magnitude, Space.World);  //旋转
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    StartPosition = Input.mousePosition;  //记录鼠标按下的时候的鼠标位置
+        //    previousPosition = Input.mousePosition;  //记录下当前这一帧的鼠标位置
+        //}
+        //if (Input.GetMouseButton(0))
+        //{
+        //    offset = Input.mousePosition - previousPosition; //这一帧鼠标的位置减去上一帧鼠标的位置就是鼠标的偏移量 
+        //    previousPosition = Input.mousePosition; //再次记录当前鼠标的位置，以备下一帧求offset使用。
+        //    Vector3 Xoffset = new Vector3(-offset.x, 0, 0);//过滤掉鼠标在Y轴方向上的偏移量，只保留X轴的
+        //    transform.Rotate(Vector3.Cross(Xoffset, Vector3.forward).normalized, offset.magnitude, Space.World);  //旋转
+        //}
         if (Input.GetKeyDown(KeyCode.Q))
         {
             //foreach (GameObject obj in gameObjects_to_slice)
@@ -117,7 +120,8 @@ public class Slicer : MonoBehaviour
 
             //foreach (GameObject obj in gameObjects_to_slice)
             //{
-                SlicedHull slicedHull = object_to_slice.Slice(slice_plane.transform.position, slice_plane.transform.up);
+            SlicedHull slicedHull = object_to_slice.Slice(slice_plane.transform.position, slice_plane.transform.up);
+            
             GameObject part1 = slicedHull.CreateUpperHull(object_to_slice, banana);
             GameObject part2 = slicedHull.CreateLowerHull(object_to_slice, banana);
                 
