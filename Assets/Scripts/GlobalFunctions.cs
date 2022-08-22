@@ -44,6 +44,8 @@ public static class GlobalFunctions
     public static Camera current_camera;
 
     public static List<GameObject> outline_objects = new List<GameObject>();
+
+    //public static GameObject sliced_content = new GameObject();
     
     
     public enum GameState
@@ -291,7 +293,8 @@ public static class GlobalFunctions
                 {
                     if (temp_name != hit_obj.name && temp_name != "")
                     {
-                        RemoveOutline(temp_object);
+                        if(temp_object)
+                            RemoveOutline(temp_object);
                     }
                     temp_name = hit_obj.name;
                     temp_object = hit_obj.transform;

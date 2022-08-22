@@ -29,10 +29,13 @@ public class Slicer : MonoBehaviour
     GameObject slice_plane;
     
     List<GameObject> gameObjects_to_slice= new List<GameObject>();
+
+    private bool is_finish_cut = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        gameObjects_to_slice.Add(object_to_slice);
+        
 
         slice_plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
         slice_plane.transform.parent = gameObject.transform;
@@ -49,26 +52,26 @@ public class Slicer : MonoBehaviour
         //slice_plane.GetComponent<MeshCollider>().isTrigger = true;
     }
 
-    
+
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.W))
-
-        {
-
-            transform.Translate(0, 0, movespeed * Time.deltaTime, Space.World);
-
-        }
-
-        if (Input.GetKey(KeyCode.S))
-
-        {
-
-            transform.Translate(0, 0, movespeed * Time.deltaTime * (-1), Space.World);
-
-        }
+        //if (Input.GetKey(KeyCode.W))
+        //
+        //{
+        //
+        //    transform.Translate(0, 0, movespeed * Time.deltaTime, Space.World);
+        //
+        //}
+        //
+        //if (Input.GetKey(KeyCode.S))
+        //
+        //{
+        //
+        //    transform.Translate(0, 0, movespeed * Time.deltaTime * (-1), Space.World);
+        //
+        //}
 
         if (Input.GetKey(KeyCode.A))
 
@@ -120,25 +123,56 @@ public class Slicer : MonoBehaviour
 
             //foreach (GameObject obj in gameObjects_to_slice)
             //{
-            SlicedHull slicedHull = object_to_slice.Slice(slice_plane.transform.position, slice_plane.transform.up);
-            
-            GameObject part1 = slicedHull.CreateUpperHull(object_to_slice, banana);
-            GameObject part2 = slicedHull.CreateLowerHull(object_to_slice, banana);
-                
+            if (!is_finish_cut)
+            {
+                SlicedHull slicedHull = object_to_slice.Slice(slice_plane.transform.position, slice_plane.transform.up);
+
+                print(object_to_slice);
+
+                GameObject part1 = slicedHull.CreateUpperHull(object_to_slice, banana);
+
+                GameObject part2 = slicedHull.CreateLowerHull(object_to_slice, banana);
+
                 part1.AddComponent<MeshCollider>().convex = true;
-                part1.AddComponent<Rigidbody>().useGravity=true;
-                part1.GetComponent<Rigidbody>().AddForce(new Vector3(50, 50, 0));
+                part1.AddComponent<Rigidbody>().useGravity = true;
+                part1.GetComponent<Rigidbody>().AddForce(new Vector3(-50, 50, 0));
 
-            //part2.AddComponent<MeshCollider>().convex = true;
-            //part2.AddComponent<Rigidbody>().useGravity = true;
-            //part2.GetComponent<Rigidbody>().AddForce(new Vector3(-50, 0, -50));
+                gameObjects_to_slice.Add(part1);
 
-            Destroy(object_to_slice);
+                //part2.AddComponent<MeshCollider>().convex = true;
+                //part2.AddComponent<Rigidbody>().useGravity = true;
+                //part2.GetComponent<Rigidbody>().AddForce(new Vector3(-50, 0, -50));
 
-            object_to_slice = part2;
+                //part1.transform.parent = GlobalFunctions.sliced_content.transform;
 
+                Destroy(object_to_slice);
+
+                object_to_slice = part2;
+            }
+            else
+            {
+                object_to_slice.AddComponent<MeshCollider>().convex = true;
+                object_to_slice.AddComponent<Rigidbody>().useGravity = true;
+                object_to_slice.GetComponent<Rigidbody>().AddForce(new Vector3(-50, 50, 0));
+                gameObjects_to_slice.Add(object_to_slice);
+
+                GameObject sliced_content = new GameObject();
+                sliced_content.layer = 3;
+                sliced_content.AddComponent<Outline>().OutlineColor = Color.red;
+                sliced_content.GetComponent<Outline>().enabled = false;
+                sliced_content.AddComponent<Rigidbody>().useGravity = false;
+                sliced_content.AddComponent<BoxCollider>();
+                foreach (GameObject gameObject in gameObjects_to_slice)
+                {
+                    gameObject.transform.parent = sliced_content.transform;
+                }
+            }
             //}
 
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            is_finish_cut = true;
         }
     }
 }
