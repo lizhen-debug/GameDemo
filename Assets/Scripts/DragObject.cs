@@ -64,10 +64,10 @@ public class DragObject : MonoBehaviour
             _dragGameObject.position = curWorldPoint + _offset;
 
             //限制拖动范围
-            _dragGameObject.GetComponent<Rigidbody>().transform.position = new Vector3(
-                Mathf.Clamp(_dragGameObject.GetComponent<Rigidbody>().transform.position.x, xMin, xMax),
-                Mathf.Clamp(_dragGameObject.GetComponent<Rigidbody>().transform.position.y, yMin, yMax),
-                Mathf.Clamp(_dragGameObject.GetComponent<Rigidbody>().transform.position.z, zMin, zMax)
+            _dragGameObject.transform.position = new Vector3(
+                Mathf.Clamp(_dragGameObject.transform.position.x, xMin, xMax),
+                Mathf.Clamp(_dragGameObject.transform.position.y, yMin, yMax),
+                Mathf.Clamp(_dragGameObject.transform.position.z, zMin, zMax)
             );
         }
 
@@ -75,7 +75,21 @@ public class DragObject : MonoBehaviour
         {
             _isClickCube = false;
             if(_dragGameObject)
-                _dragGameObject.GetComponent<Rigidbody>().isKinematic = false;
+            {
+                if (_dragGameObject.GetComponent<Rigidbody>())
+                    _dragGameObject.GetComponent<Rigidbody>().isKinematic = false;
+                else
+                    foreach (Transform gameObject in _dragGameObject)
+                    {
+                        gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                    }
+            }
+            
+
+
+
+
+
             //恢复拖拽物体的Y轴为原点
             //_dragGameObject.GetComponent<Rigidbody>().transform.position = new Vector3(
             //    _dragGameObject.GetComponent<Rigidbody>().transform.position.x, 0,
@@ -93,11 +107,29 @@ public class DragObject : MonoBehaviour
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo, 100f, _canDrag))
         {
+            
             _isClickCube = true;
             //得到射线碰撞到的物体
             _dragGameObject = hitInfo.collider.gameObject.transform;
+
+            if (_dragGameObject.tag == "sliced_food")
+            {
+                _dragGameObject = _dragGameObject.transform.parent.gameObject.transform;
+            }
+
             _targetScreenPoint = Camera.main.WorldToScreenPoint(_dragGameObject.position);
-            _dragGameObject.GetComponent<Rigidbody>().isKinematic = true;
+            
+            
+            if (_dragGameObject.GetComponent<Rigidbody>())
+                _dragGameObject.GetComponent<Rigidbody>().isKinematic = true;
+            else
+            {
+                foreach (Transform gameObject in _dragGameObject)
+                {
+                    gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                }
+            }
+
             return true;
         }
 

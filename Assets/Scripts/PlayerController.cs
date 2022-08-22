@@ -33,7 +33,7 @@ public class PlayerController
         
         if (Input.GetMouseButtonDown(0))
         {
-            if (GlobalFunctions.MoveNavMeshAgent() == "KitchenArea")
+            if (GlobalFunctions.MoveNavMeshAgent() == "KitchenArea_Anchor")
             {
                 GlobalFunctions.outline_objects[0].GetComponent<BoxCollider>().enabled = false;
                 GameManager.ChangeGameState(GlobalFunctions.GameState.Cooking);

@@ -116,13 +116,7 @@ public class Slicer : MonoBehaviour
         //}
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            //foreach (GameObject obj in gameObjects_to_slice)
-            //{ 
-            //    print(obj.name);
-            //}
-
-            //foreach (GameObject obj in gameObjects_to_slice)
-            //{
+            
             if (!is_finish_cut)
             {
                 SlicedHull slicedHull = object_to_slice.Slice(slice_plane.transform.position, slice_plane.transform.up);
@@ -136,7 +130,10 @@ public class Slicer : MonoBehaviour
                 part1.AddComponent<MeshCollider>().convex = true;
                 part1.AddComponent<Rigidbody>().useGravity = true;
                 part1.GetComponent<Rigidbody>().AddForce(new Vector3(-50, 50, 0));
+                //part1.AddComponent<Outline>().enabled = true;
 
+                part1.tag = "sliced_food";
+                part1.layer = 3;
                 gameObjects_to_slice.Add(part1);
 
                 //part2.AddComponent<MeshCollider>().convex = true;
@@ -145,6 +142,7 @@ public class Slicer : MonoBehaviour
 
                 //part1.transform.parent = GlobalFunctions.sliced_content.transform;
 
+                //GlobalFunctions.outline_objs.Add(part1.name, false);
                 Destroy(object_to_slice);
 
                 object_to_slice = part2;
@@ -154,18 +152,34 @@ public class Slicer : MonoBehaviour
                 object_to_slice.AddComponent<MeshCollider>().convex = true;
                 object_to_slice.AddComponent<Rigidbody>().useGravity = true;
                 object_to_slice.GetComponent<Rigidbody>().AddForce(new Vector3(-50, 50, 0));
+                
+                object_to_slice.tag = "sliced_food";
+                object_to_slice.layer = 3;
+
+
+
                 gameObjects_to_slice.Add(object_to_slice);
 
                 GameObject sliced_content = new GameObject();
-                sliced_content.layer = 3;
-                sliced_content.AddComponent<Outline>().OutlineColor = Color.red;
-                sliced_content.GetComponent<Outline>().enabled = false;
-                sliced_content.AddComponent<Rigidbody>().useGravity = false;
-                sliced_content.AddComponent<BoxCollider>();
+                sliced_content.transform.position = object_to_slice.transform.position;
+                //sliced_content.layer = 3;
+
+
+
+                //sliced_content.AddComponent<Rigidbody>().useGravity = false;
+
+                //sliced_content.AddComponent<BoxCollider>().isTrigger = true;
+                //sliced_content.GetComponent<BoxCollider>() = true;
+
                 foreach (GameObject gameObject in gameObjects_to_slice)
                 {
                     gameObject.transform.parent = sliced_content.transform;
                 }
+
+                sliced_content.AddComponent<Outline>().OutlineColor = Color.red;
+                sliced_content.GetComponent<Outline>().enabled = false;
+
+                GlobalFunctions.outline_objs.Add(sliced_content.name, false);
             }
             //}
 

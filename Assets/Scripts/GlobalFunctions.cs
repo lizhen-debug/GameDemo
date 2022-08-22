@@ -289,6 +289,12 @@ public static class GlobalFunctions
             {
                 GameObject hit_obj = hit.collider.gameObject;
 
+                if (hit_obj.tag == "sliced_food")
+                {
+                    //Debug.Log("hellodsadas");
+                    hit_obj = hit_obj.transform.parent.gameObject;
+                }
+              
                 if (outline_objs.ContainsKey(hit_obj.name))
                 {
                     if (temp_name != hit_obj.name && temp_name != "")
@@ -350,12 +356,13 @@ public static class GlobalFunctions
     public static string MoveNavMeshAgent()
     {
         if (!mouse_hovered_obj) return "empty";
-        if (area_anchors.ContainsKey(mouse_hovered_obj.name))
+        string anchor_name = mouse_hovered_obj.name + "_Anchor";
+        if (area_anchors.ContainsKey(anchor_name))
         {
-            var destination = area_anchors[mouse_hovered_obj.name];
+            var destination = area_anchors[anchor_name];
             navMeshAgent.SetDestination(destination);
-            Debug.Log(mouse_hovered_obj.name);
-            return mouse_hovered_obj.name;
+            //Debug.Log(mouse_hovered_obj.name);
+            return anchor_name;
         }
         else
         {

@@ -4650,7 +4650,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 341006885}
-  - {fileID: 1863019233}
+  - {fileID: 1732415736}
   - {fileID: 726246923}
   - {fileID: 1651339392}
   m_Father: {fileID: 1929751046}
@@ -7643,7 +7643,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5156115521626819926, guid: b2deaae80728d1b42a225d61b8855550, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.411
+      value: -8.105
       objectReference: {fileID: 0}
     - target: {fileID: 5156115521626819926, guid: b2deaae80728d1b42a225d61b8855550, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9974,7 +9974,7 @@ GameObject:
   - component: {fileID: 849952339}
   - component: {fileID: 849952338}
   m_Layer: 0
-  m_Name: EntranceDoor
+  m_Name: EntranceDoor_Anchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13640,7 +13640,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1863019233}
+    m_TransformParent: {fileID: 426783822}
     m_Modifications:
     - target: {fileID: -7553374712222970777, guid: 94bb5796e348a844eb644f7a4e847d92, type: 3}
       propertyPath: m_Convex
@@ -13652,7 +13652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8514840781252973744, guid: 94bb5796e348a844eb644f7a4e847d92, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8514840781252973744, guid: 94bb5796e348a844eb644f7a4e847d92, type: 3}
       propertyPath: m_LocalScale.x
@@ -20880,6 +20880,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1309143209}
   m_RootOrder: 61
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1636680021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1636680022}
+  m_Layer: 0
+  m_Name: SlicedParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1636680022
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636680021}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.446724, y: 3.0862207, z: -10.772319}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1645887366
 GameObject:
@@ -33180,38 +33211,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 239191457970496351, guid: 1027abfbc879cbe42bdccfed539ab7ec, type: 3}
   m_PrefabInstance: {fileID: 1851174210}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1863019232
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1863019233}
-  m_Layer: 0
-  m_Name: EntranceDoor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
-  m_IsActive: 1
---- !u!4 &1863019233
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863019232}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1732415736}
-  m_Father: {fileID: 426783822}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1865635751
 GameObject:
   m_ObjectHideFlags: 0
@@ -34560,7 +34559,7 @@ GameObject:
   - component: {fileID: 2017962848}
   - component: {fileID: 2017962847}
   m_Layer: 0
-  m_Name: KitchenArea
+  m_Name: KitchenArea_Anchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36234,7 +36233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0eb78d4ea2a91048bbba02fdc1932e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ground: {fileID: 3225046441673833314}
+  ground: {fileID: 5532077388380075606}
   object_to_slice: {fileID: 1678945176}
   banana: {fileID: -9056429025679158964, guid: f24e704d83790b247857b70a3e9070d0, type: 3}
   movespeed: 1

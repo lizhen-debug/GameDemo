@@ -6,6 +6,7 @@ TagManager:
   tags:
   - clone
   - PrepareFood
+  - sliced_food
   layers:
   - Default
   - TransparentFX
