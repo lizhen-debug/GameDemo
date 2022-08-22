@@ -44,42 +44,13 @@ public class PlayerController
 
     }
 
-
-    //private bool isClick = false;
-    //private Transform curTf = null;
-    //private Vector3 oriMousePos;
-    //private Vector3 oriObjectScreenPos;
-
     private void ControllerLogic_Cooking()
     {
         //Debug.Log("MainMenu state controller");
 
         GlobalFunctions.MouseHover();
 
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    if (GlobalFunctions.mouse_hovered_obj)
-        //    {
-        //        curTf = GlobalFunctions.mouse_hovered_obj;
-        //        oriObjectScreenPos = Camera.main.WorldToScreenPoint(curTf.position);
-        //        oriMousePos = Input.mousePosition;
-        //    }
-        //    isClick = !isClick;
-        //    
-        //}
-        //if (isClick)
-        //{
-        //    if (curTf != null)
-        //    {
-        //        Vector3 curMousePos = Input.mousePosition;
-        //        Vector3 mouseOffset = curMousePos - oriMousePos;
-        //        Vector3 curObjectScreenPos = oriObjectScreenPos + mouseOffset;
-        //        Vector3 curObjectWorldPos = Camera.main.ScreenToWorldPoint(curObjectScreenPos);
-        //        curTf.position = new Vector3(curObjectWorldPos.x, curObjectWorldPos.y, (float)-10.3);
-        //    }
-        //}
-
-
+        
         if (Input.GetKeyDown(KeyCode.B))
         {
             GameManager.ChangeGameState(GlobalFunctions.GameState.MainScene);
