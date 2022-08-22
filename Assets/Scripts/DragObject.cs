@@ -1,39 +1,41 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
+using System;
+using System.Collections.Generic;
 
 public class DragObject : MonoBehaviour
 {
     /// <summary>
-    /// ½«ÒªÍÏ¶¯µÄÎïÌå
+    /// å°†è¦æ‹–åŠ¨çš„ç‰©ä½“
     /// </summary>
     private Transform _dragGameObject;
 
     /// <summary>
-    /// »ñÈ¡ÉäÏßĞèÒªÅö×²µÄ²ã
+    /// è·å–å°„çº¿éœ€è¦ç¢°æ’çš„å±‚
     /// </summary>
     private LayerMask _canDrag;
 
     /// <summary>
-    /// Ö±½Ó´ÓÍâ²¿¶¨ÒåºÃ²ã£¬¼òµ¥Àí½â
+    /// ç›´æ¥ä»å¤–éƒ¨å®šä¹‰å¥½å±‚ï¼Œç®€å•ç†è§£
     /// </summary>
     public LayerMask canDrag2;
 
     /// <summary>
-    /// »ñµÃÊó±êµÄÎ»ÖÃºÍcubeÎ»ÖÃ²î
+    /// è·å¾—é¼ æ ‡çš„ä½ç½®å’Œcubeä½ç½®å·®
     /// </summary>
     private Vector3 _offset;
 
     /// <summary>
-    /// ÊÇ·ñµã»÷µ½cube
+    /// æ˜¯å¦ç‚¹å‡»åˆ°cube
     /// </summary>
     private bool _isClickCube;
 
     /// <summary>
-    /// Ä¿±ê¶ÔÏóµÄÆÁÄ»×ø±ê
+    /// ç›®æ ‡å¯¹è±¡çš„å±å¹•åæ ‡
     /// </summary>
     private Vector3 _targetScreenPoint;
 
-    //ÏŞÖÆÍÏ¶¯·¶Î§µÄ×îĞ¡ÖµºÍ×î´óÖµ
+    //é™åˆ¶æ‹–åŠ¨èŒƒå›´çš„æœ€å°å€¼å’Œæœ€å¤§å€¼
     public float xMin, xMax, yMin, yMax, zMin, zMax;
 
     // Use this for initialization
@@ -57,13 +59,13 @@ public class DragObject : MonoBehaviour
 
         if (_isClickCube)
         {
-            //µ±Ç°Êó±êËùÔÚµÄÆÁÄ»×ø±ê
+            //å½“å‰é¼ æ ‡æ‰€åœ¨çš„å±å¹•åæ ‡
             Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _targetScreenPoint.z);
-            //°Ñµ±Ç°Êó±êµÄÆÁÄ»×ø±ê×ª»»³ÉÊÀ½ç×ø±ê
+            //æŠŠå½“å‰é¼ æ ‡çš„å±å¹•åæ ‡è½¬æ¢æˆä¸–ç•Œåæ ‡
             Vector3 curWorldPoint = Camera.main.ScreenToWorldPoint(curScreenPoint);
             _dragGameObject.position = curWorldPoint + _offset;
 
-            //ÏŞÖÆÍÏ¶¯·¶Î§
+            //é™åˆ¶æ‹–åŠ¨èŒƒå›´
             _dragGameObject.transform.position = new Vector3(
                 Mathf.Clamp(_dragGameObject.transform.position.x, xMin, xMax),
                 Mathf.Clamp(_dragGameObject.transform.position.y, yMin, yMax),
@@ -83,6 +85,7 @@ public class DragObject : MonoBehaviour
                     {
                         gameObject.GetComponent<Rigidbody>().isKinematic = false;
                     }
+
             }
             
 
@@ -90,7 +93,7 @@ public class DragObject : MonoBehaviour
 
 
 
-            //»Ö¸´ÍÏ×§ÎïÌåµÄYÖáÎªÔ­µã
+            //æ¢å¤æ‹–æ‹½ç‰©ä½“çš„Yè½´ä¸ºåŸç‚¹
             //_dragGameObject.GetComponent<Rigidbody>().transform.position = new Vector3(
             //    _dragGameObject.GetComponent<Rigidbody>().transform.position.x, 0,
             //    _dragGameObject.GetComponent<Rigidbody>().transform.position.z);
@@ -98,7 +101,7 @@ public class DragObject : MonoBehaviour
     }
 
     /// <summary>
-    /// ¼ì²éÊÇ·ñµã»÷µ½cbue
+    /// æ£€æŸ¥æ˜¯å¦ç‚¹å‡»åˆ°cbue
     /// </summary>
     /// <returns></returns>
     private bool CheckGameObject()
@@ -107,28 +110,40 @@ public class DragObject : MonoBehaviour
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo, 100f, _canDrag))
         {
-            
+
             _isClickCube = true;
-            //µÃµ½ÉäÏßÅö×²µ½µÄÎïÌå
+            
             _dragGameObject = hitInfo.collider.gameObject.transform;
 
             if (_dragGameObject.tag == "sliced_food")
             {
-                _dragGameObject = _dragGameObject.transform.parent.gameObject.transform;
-            }
+                // create a new game object and remove the old one when drag
+                GameObject new_drag = new GameObject(_dragGameObject.parent.name);
+                Transform old_drag = _dragGameObject.parent;
+                new_drag.transform.position = _dragGameObject.transform.position;
+                List<Transform> children = new List<Transform>();
+                foreach (Transform child in old_drag)
+                {
+                    children.Add(child);
+                }
+                foreach (Transform child in children)
+                {
+                    child.SetParent(new_drag.transform);
+                    child.GetComponent<Rigidbody>().isKinematic = true;
+                }
+                Destroy(old_drag.gameObject);
 
-            _targetScreenPoint = Camera.main.WorldToScreenPoint(_dragGameObject.position);
-            
-            
-            if (_dragGameObject.GetComponent<Rigidbody>())
-                _dragGameObject.GetComponent<Rigidbody>().isKinematic = true;
+                new_drag.AddComponent<Outline>().enabled = false;
+                new_drag.GetComponent<Outline>().OutlineColor = Color.green;
+                _targetScreenPoint = Camera.main.WorldToScreenPoint(new_drag.transform.position);
+                _dragGameObject = new_drag.transform;
+            }
             else
             {
-                foreach (Transform gameObject in _dragGameObject)
-                {
-                    gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                }
+                _targetScreenPoint = Camera.main.WorldToScreenPoint(_dragGameObject.position);
+                _dragGameObject.GetComponent<Rigidbody>().isKinematic = true;
             }
+
 
             return true;
         }

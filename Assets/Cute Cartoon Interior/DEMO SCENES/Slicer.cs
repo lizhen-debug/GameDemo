@@ -161,10 +161,10 @@ public class Slicer : MonoBehaviour
                 gameObjects_to_slice.Add(object_to_slice);
 
                 GameObject sliced_content = new GameObject();
+                
                 sliced_content.transform.position = object_to_slice.transform.position;
+                
                 //sliced_content.layer = 3;
-
-
 
                 //sliced_content.AddComponent<Rigidbody>().useGravity = false;
 
