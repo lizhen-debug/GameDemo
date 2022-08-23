@@ -71,6 +71,7 @@ public class DragObject : MonoBehaviour
                 Mathf.Clamp(_dragGameObject.transform.position.y, yMin, yMax),
                 Mathf.Clamp(_dragGameObject.transform.position.z, zMin, zMax)
             );
+
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -87,17 +88,14 @@ public class DragObject : MonoBehaviour
                     }
 
             }
+
             
 
-
-
-
-
-            //恢复拖拽物体的Y轴为原点
-            //_dragGameObject.GetComponent<Rigidbody>().transform.position = new Vector3(
-            //    _dragGameObject.GetComponent<Rigidbody>().transform.position.x, 0,
-            //    _dragGameObject.GetComponent<Rigidbody>().transform.position.z);
-        }
+                //恢复拖拽物体的Y轴为原点
+                //_dragGameObject.GetComponent<Rigidbody>().transform.position = new Vector3(
+                //    _dragGameObject.GetComponent<Rigidbody>().transform.position.x, 0,
+                //    _dragGameObject.GetComponent<Rigidbody>().transform.position.z);
+            }
     }
 
     /// <summary>
