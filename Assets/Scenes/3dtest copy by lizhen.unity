@@ -9975,7 +9975,7 @@ GameObject:
   - component: {fileID: 849952338}
   m_Layer: 0
   m_Name: EntranceDoor_Anchor
-  m_TagString: Untagged
+  m_TagString: anchor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9988,10 +9988,10 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 849952337}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &849952339
 MeshRenderer:
@@ -15369,6 +15369,8 @@ GameObject:
   - component: {fileID: 1309143206}
   - component: {fileID: 1309143211}
   - component: {fileID: 1309143212}
+  - component: {fileID: 1309143213}
+  - component: {fileID: 1309143214}
   m_Layer: 0
   m_Name: CustomizableCharacter
   m_TagString: Untagged
@@ -16001,6 +16003,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce2c5cb5ae70024186bbd14eb4452d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &1309143213
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309143205}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.35
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.88, z: 0}
+--- !u!54 &1309143214
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309143205}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1317563341
 GameObject:
   m_ObjectHideFlags: 0
@@ -34560,7 +34592,7 @@ GameObject:
   - component: {fileID: 2017962847}
   m_Layer: 0
   m_Name: KitchenArea_Anchor
-  m_TagString: Untagged
+  m_TagString: anchor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34573,10 +34605,10 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017962846}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2017962848
 MeshRenderer:
@@ -34636,7 +34668,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017962846}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.18, y: -0.38437617, z: 0.536}
+  m_LocalPosition: {x: -0.004, y: -0.38437617, z: 0.503}
   m_LocalScale: {x: 0.05339689, y: 0.16957678, z: 0.18634266}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     }
     private void MainSceneConfig()
     {
+        GlobalFunctions.player.transform.GetChild(0).gameObject.SetActive(true);
         // ÅäÖÃÉãÏñ»ú
         GlobalFunctions.current_camera = GlobalFunctions.cam_arr[0];
         // ÉãÏñ»ú×ª»»
@@ -55,9 +56,13 @@ public class GameManager : MonoBehaviour
         GlobalFunctions.InitializeObjOutlines(main_scene_outline_objects);
         // ÅäÖÃMeshAgentÃªµã
         GlobalFunctions.InitializeAreaAnchors(main_scene_anchors);
+        GlobalFunctions.outline_objects[0].GetComponent<BoxCollider>().enabled = true;
+
     }
     private void CookingConfig()
     {
+        GlobalFunctions.outline_objects[0].GetComponent<BoxCollider>().enabled = false;
+        GlobalFunctions.player.transform.GetChild(0).gameObject.SetActive(false);
         // ÅäÖÃÉãÏñ»ú
         GlobalFunctions.current_camera = GlobalFunctions.cam_arr[1];
         // ÉãÏñ»ú×ª»»
@@ -70,7 +75,6 @@ public class GameManager : MonoBehaviour
         GlobalFunctions.InitializeObjOutlines(cooking_outline_objects);
         // ÅäÖÃMeshAgentÃªµã
         //GlobalFunctions.InitializeAreaAnchors(cooking_anchors);
-        
     }
 }
 

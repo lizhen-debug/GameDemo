@@ -28,34 +28,16 @@ public class PlayerController
     private void ControllerLogic_MainScene()
     {
         //Debug.Log("MainMenu state controller");
-
         GlobalFunctions.MouseHover();
-        
         if (Input.GetMouseButtonDown(0))
         {
-            if (GlobalFunctions.MoveNavMeshAgent() == "KitchenArea_Anchor")
-            {
-                GlobalFunctions.outline_objects[0].GetComponent<BoxCollider>().enabled = false;
-                GameManager.ChangeGameState(GlobalFunctions.GameState.Cooking);
-                Event.Cook(GlobalFunctions.player);
-            }
+            GlobalFunctions.MoveNavMeshAgent();
         }
-
-
     }
 
     private void ControllerLogic_Cooking()
     {
         //Debug.Log("MainMenu state controller");
-
         GlobalFunctions.MouseHover();
-
-        
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            GameManager.ChangeGameState(GlobalFunctions.GameState.MainScene);
-            GlobalFunctions.outline_objects[0].GetComponent<BoxCollider>().enabled = true;
-        }
-
     }
 }
