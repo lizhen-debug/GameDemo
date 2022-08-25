@@ -59,6 +59,19 @@ public class DragObject : MonoBehaviour
 
         if (_isClickCube)
         {
+            if (_dragGameObject.tag == "sliced_food")
+            {
+                foreach(Transform gameObject in _dragGameObject)
+                {
+                    //print(gameObject.transform.position - _dragGameObject.position);
+                    gameObject.GetComponent<Rigidbody>().AddForce(10 * (_dragGameObject.position - gameObject.transform.position));
+                    if ((_dragGameObject.position - gameObject.transform.position).magnitude < 0.1)
+                    {
+                        gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                    }
+                }
+            }
+
             //当前鼠标所在的屏幕坐标
             Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _targetScreenPoint.z);
             //把当前鼠标的屏幕坐标转换成世界坐标
@@ -71,6 +84,7 @@ public class DragObject : MonoBehaviour
                 Mathf.Clamp(_dragGameObject.transform.position.y, yMin, yMax),
                 Mathf.Clamp(_dragGameObject.transform.position.z, zMin, zMax)
             );
+            
 
         }
 
@@ -127,7 +141,7 @@ public class DragObject : MonoBehaviour
                 foreach (Transform child in children)
                 {
                     child.SetParent(new_drag.transform);
-                    child.GetComponent<Rigidbody>().isKinematic = true;
+                    //child.GetComponent<Rigidbody>().isKinematic = true;
                 }
                 Destroy(old_drag.gameObject);
 
@@ -135,6 +149,7 @@ public class DragObject : MonoBehaviour
                 new_drag.GetComponent<Outline>().OutlineColor = Color.green;
                 _targetScreenPoint = Camera.main.WorldToScreenPoint(new_drag.transform.position);
                 _dragGameObject = new_drag.transform;
+                _dragGameObject.tag = "sliced_food";
             }
             else
             {
