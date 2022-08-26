@@ -14069,7 +14069,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &867506968
 Transform:
   m_ObjectHideFlags: 0
@@ -14116,9 +14116,10 @@ MonoBehaviour:
   - {fileID: 1415634892}
   - {fileID: 1942151368}
   randomEventUI: {fileID: 2064292054}
+  player: {fileID: 0}
   PrepareFoodQTE: {fileID: 0}
   PickFood: {fileID: 0}
-  player: {fileID: 0}
+  navMeshAgent: {fileID: 0}
 --- !u!1 &894037529
 GameObject:
   m_ObjectHideFlags: 0

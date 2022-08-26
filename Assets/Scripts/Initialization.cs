@@ -26,7 +26,7 @@ public class Initialization : MonoBehaviour
     public NavMeshAgent navMeshAgent;
 
     PlayerChangeInfo PlayerChangeInfo;
-    void Start()
+    void Awake()
     {
         // initialize cam_arr & btns
         GlobalFunctions.cam_arr = cam_arr;

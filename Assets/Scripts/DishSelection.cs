@@ -57,8 +57,11 @@ public class DishSelection : MonoBehaviour
     {
         Vector2 ref_pos = dish_ref.GetComponent<RectTransform>().anchoredPosition;
         Vector2 dish_pos = ref_pos;
+        Debug.Log("hi");
+        Debug.Log(GlobalFunctions.recipe_arr.Count);
         foreach (Recipe recipe in GlobalFunctions.recipe_arr)
         {
+            Debug.Log("hey");
             GameObject dish = Instantiate(dish_ref, dish_bg);
             // set image and text
             dish.GetComponent<RectTransform>().anchoredPosition = dish_pos;

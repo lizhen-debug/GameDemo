@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     private static List<Action> ExecuteGameStateCongig = new List<Action>();
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         ExecuteGameStateCongig.Add(MainSceneConfig);
         ExecuteGameStateCongig.Add(CookingConfig);
