@@ -73,7 +73,7 @@ public class Slicer : MonoBehaviour
         //
         //}
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A))
 
         {
 
@@ -81,7 +81,7 @@ public class Slicer : MonoBehaviour
 
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))
 
         {
 
@@ -130,6 +130,8 @@ public class Slicer : MonoBehaviour
                 part1.AddComponent<MeshCollider>().convex = true;
                 part1.AddComponent<Rigidbody>().useGravity = true;
                 part1.GetComponent<Rigidbody>().AddForce(new Vector3(-50, 50, 0));
+                //part1.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Extrapolate;
+                //part1.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.Continuous;
                 //part1.AddComponent<Outline>().enabled = true;
 
                 part1.tag = "sliced_food";
@@ -152,7 +154,9 @@ public class Slicer : MonoBehaviour
                 object_to_slice.AddComponent<MeshCollider>().convex = true;
                 object_to_slice.AddComponent<Rigidbody>().useGravity = true;
                 object_to_slice.GetComponent<Rigidbody>().AddForce(new Vector3(-50, 50, 0));
-                
+                //object_to_slice.GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Extrapolate;
+                //object_to_slice.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.Continuous;
+
                 object_to_slice.tag = "sliced_food";
                 object_to_slice.layer = 3;
 

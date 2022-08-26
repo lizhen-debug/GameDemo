@@ -64,8 +64,8 @@ public class DragObject : MonoBehaviour
                 foreach(Transform gameObject in _dragGameObject)
                 {
                     //print(gameObject.transform.position - _dragGameObject.position);
-                    gameObject.GetComponent<Rigidbody>().AddForce(10 * (_dragGameObject.position - gameObject.transform.position));
-                    if ((_dragGameObject.position - gameObject.transform.position).magnitude < 0.1)
+                    gameObject.GetComponent<Rigidbody>().AddForce(100 * (_dragGameObject.position - gameObject.transform.position));
+                    if ((_dragGameObject.position - gameObject.transform.position).magnitude < 0.01)
                     {
                         gameObject.GetComponent<Rigidbody>().isKinematic = true;
                     }
